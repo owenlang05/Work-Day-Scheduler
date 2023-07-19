@@ -16,8 +16,9 @@ $(function () {
 
   for (var i = 9; i <= 17; i++) {
     var tempCalendarEl = calendarEl.clone();
-    // gets the 12 hour time from 24 hour number
+    // gets the 12 hour time from 24 hour number who needs dayjs
     var hourNumber = i % 12 || 12;
+    var hourId = 'hour' + hourNumber;
     var timeClass = "";
     var amPm = 'AM';
 
@@ -33,10 +34,10 @@ $(function () {
       timeClass = 'future';
     }
 
-    tempCalendarEl.attr('id', 'hour' + hourNumber);
+    tempCalendarEl.attr('id', hourId);
     tempCalendarEl.addClass(timeClass);
     tempCalendarEl.children('div').text(hourNumber + amPm);
-    console.log(currentHour);
+    tempCalendarEl.children('textarea').val(localStorage.getItem(hourId) || "")
 
     rootEl.append(tempCalendarEl);
   }
@@ -48,19 +49,14 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
 
+  $('#root').on('click', '.saveBtn', save);
 
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
-  // TODO: Add code to display the current date in the header of the page.
+  //displays the current date in the header of the page.
   $('#currentDay').text(getDay())
 });
 
@@ -83,4 +79,12 @@ function getDay() {
   }
 
   return currentDay;
+}
+
+function save(evt) {
+  // sets text to local storage
+  var id = $(this).parent('div').attr('id');
+  var text = $(this).parent('div').children('textarea').val();
+
+  localStorage.setItem(id, text)
 }
