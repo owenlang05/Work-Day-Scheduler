@@ -8,7 +8,7 @@ A simple calendar application that allows a user to save events for each hour of
 
 ## Usage
 
-To use the calendar, go to the website at and type an event in any of the fields and click the save button.
+To use the calendar, go to the website at https://owenlang05.github.io/Work-Day-Scheduler and type an event in any of the fields and click the save button.
 
 ## Credits
 
